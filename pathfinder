@@ -1,0 +1,41 @@
+function framme=pathfinder(row1, col1, N, E, W, S)
+framme=0;
+n=length(N);
+if col1(1)==col1(2) && row1(1)==row1(2)
+    disp('framme')
+    framme=1;
+    return
+end
+if N(n-row1(1)+1,col1(1))==1
+    S(n-row1(1),col1(1))=0;
+    framme=pathfinder([row1(1)+1, row1(2)],[col1(1),col1(2)], N, E, W, S);
+    if framme==1
+        patch([col1(1)-0.9,col1(1)-0.1,col1(1)-0.1,col1(1)-0.9],[row1(1)+0.9,row1(1)+0.9,row1(1)+0.1,row1(1)+0.1], 'green', 'edgecolor', 'none')
+        return
+    end
+end
+if E(n-row1(1)+1,col1(1))==1
+    W(n-row1(1)+1,col1(1)+1)=0;
+    framme=pathfinder([row1(1),row1(2)],[col1(1)+1,col1(2)], N, E, W, S);
+    if framme==1
+        patch([col1(1)+0.1,col1(1)+0.9,col1(1)+0.9,col1(1)+0.1],[row1(1)-0.1,row1(1)-0.1,row1(1)-0.9,row1(1)-0.9], 'green', 'edgecolor', 'none')
+        return
+    end
+end
+if S(n-row1(1)+1,col1(1))==1
+    N(n-row1(1)+2,col1(1))=0;
+    framme=pathfinder([row1(1)-1,row1(2)],[col1(1),col1(2)], N, E, W, S);
+    if framme==1
+        patch([col1(1)-0.9,col1(1)-0.1,col1(1)-0.1,col1(1)-0.9],[row1(1)-1.1,row1(1)-1.1,row1(1)-1.9,row1(1)-1.9], 'green', 'edgecolor', 'none')
+        return
+    end
+end
+if W(n-row1(1)+1,col1(1))==1
+    E(n-row1(1)+1,col1(1)-1)=0;
+    framme=pathfinder([row1(1),row1(2)],[col1(1)-1,col1(2)], N, E, W, S);
+    if framme==1
+        patch([col1(1)-1.9,col1(1)-1.1,col1(1)-1.1,col1(1)-1.9],[row1(1)-0.1,row1(1)-0.1,row1(1)-0.9,row1(1)-0.9], 'green', 'edgecolor', 'none')
+        return
+    end
+end
+end
